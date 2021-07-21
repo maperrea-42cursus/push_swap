@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/12 20:02:24 by maperrea          #+#    #+#             */
-/*   Updated: 2021/07/21 14:28:56 by maperrea         ###   ########.fr       */
+/*   Created: 2021/07/21 14:32:18 by maperrea          #+#    #+#             */
+/*   Updated: 2021/07/21 14:39:21 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#ifndef GLOBAL_H
+# define GLOBAL_H
 
-int main(int argc, char **argv)
+# include <unistd.h>
+# include <string.h>
+# include <stdio.h>
+# include <stdlib.h>
+
+typedef struct s_stack
 {
-	(void)argc;
-	(void)argv;
-	return (0);
-}
+	int				key;
+	struct s_stack	*next;
+}				t_stack;
+
+void			error(void)
+#endif

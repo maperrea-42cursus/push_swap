@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/12 20:02:24 by maperrea          #+#    #+#             */
-/*   Updated: 2021/07/21 14:28:56 by maperrea         ###   ########.fr       */
+/*   Created: 2021/07/21 14:37:58 by maperrea          #+#    #+#             */
+/*   Updated: 2021/07/21 14:39:10 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "global.h"
 
-int main(int argc, char **argv)
+void	error(void)
 {
-	(void)argc;
-	(void)argv;
-	return (0);
+	write(1, "Error\n", 6);
+	exit(1);
 }
