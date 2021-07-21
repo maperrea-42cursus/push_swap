@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:32:18 by maperrea          #+#    #+#             */
-/*   Updated: 2021/07/21 14:39:21 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/07/21 18:14:14 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,11 @@ typedef struct s_stack
 	struct s_stack	*next;
 }				t_stack;
 
-void			error(void)
+void			error(void);
+t_stack			*new_elem(int nb);
+t_stack			*stack_add_front(t_stack *stack, t_stack *elem);
+t_stack			*stack_add_back(t_stack *stack, t_stack *elem);
+t_stack			*stack_insert(t_stack *stack, t_stack *elem);
+void			del_elem(t_stack *elem);
+void			del_stack(t_stack *stack);
 #endif
