@@ -6,13 +6,13 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:35:43 by maperrea          #+#    #+#             */
-/*   Updated: 2021/07/21 15:30:56 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/07/28 20:16:26 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
 
-t_stack	*new_elem(int nb)
+t_stack	*stack_new(int nb)
 {
 	t_stack	*new;
 
@@ -41,7 +41,7 @@ t_stack	*stack_add_back(t_stack *stack, t_stack *elem)
 	while (stack->next)
 		stack = stack->next;
 	stack->next = elem;
-	retrun (start);
+	return (start);
 }
 
 t_stack	*stack_insert(t_stack *stack, t_stack *elem)
@@ -53,6 +53,35 @@ t_stack	*stack_insert(t_stack *stack, t_stack *elem)
 	elem->next = stack->next;
 	stack->next = elem;
 	return (stack);
+}
+
+t_stack	*stack_last(t_stack *stack)
+{
+	while (stack && stack->next)
+		stack = stack->next;
+	return (stack);
+}
+
+t_stack *stack_find(t_stack *stack, int key)
+{
+	while (stack)
+	{
+		if (stack->key == key)
+			return (stack);
+		stack = stack->next;
+	}
+	return (NULL);
+}
+
+t_stack *stack_previous(t_stack *stack, t_stack *elem)
+{
+	while (stack)
+	{
+		if (stack->next == elem)
+			return (stack);
+		stack = stack->next;
+	}
+	return (NULL);
 }
 
 void	del_elem(t_stack *elem)

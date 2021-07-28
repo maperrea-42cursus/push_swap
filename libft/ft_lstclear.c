@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
+/*   By: maperrea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/12 20:02:24 by maperrea          #+#    #+#             */
-/*   Updated: 2021/07/21 14:28:56 by maperrea         ###   ########.fr       */
+/*   Created: 2020/01/09 19:43:32 by maperrea          #+#    #+#             */
+/*   Updated: 2020/01/09 20:10:11 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-int main(int argc, char **argv)
+void	ft_lstclear(t_list **list, void (*del)(void *))
 {
-	(void)argc;
-	(void)argv;
-	return (0);
+	t_list	*next;
+
+	while (*list)
+	{
+		next = (*list)->next;
+		ft_lstdelone(*list, del);
+		*list = next;
+	}
 }
