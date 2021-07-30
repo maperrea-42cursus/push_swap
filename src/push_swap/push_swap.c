@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/12 20:04:09 by maperrea          #+#    #+#             */
-/*   Updated: 2021/07/30 18:44:26 by maperrea         ###   ########.fr       */
+/*   Created: 2021/07/30 18:11:45 by maperrea          #+#    #+#             */
+/*   Updated: 2021/07/30 18:42:25 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "push_swap.h"
 
-# include <unistd.h>
-# include <string.h>
-# include <stdio.h>
-# include <stdlib.h>
+int main(int argc, char **argv)
+{
+	t_env	*env;
+	t_stack	*sorted;
 
-# include "global.h"
-
-t_stack			*bubble_sort(t_env *env);
-
-#endif
+	env = parse_env(argc, argv);
+	check_dupes(env);
+	sorted = bubble_sort(env);
+	print_stack(sorted);
+}

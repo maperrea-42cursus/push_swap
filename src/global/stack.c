@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:35:43 by maperrea          #+#    #+#             */
-/*   Updated: 2021/07/28 20:16:26 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/07/30 19:00:30 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,32 @@ t_stack *stack_previous(t_stack *stack, t_stack *elem)
 		stack = stack->next;
 	}
 	return (NULL);
+}
+
+t_stack	*stack_swap(t_stack **stack, t_stack *elem1, t_stack *elem2)
+{
+	t_stack	*previous;
+
+	previous = stack_previous(*stack, elem1);
+	if (previous)
+		previous->next = elem2;
+	else
+		*stack = elem2;
+	stack_insert(elem2, elem1);
+	return (elem2);
+}
+
+t_stack	*stack_copy(t_stack *stack)
+{
+	t_stack	*copy;
+
+	copy = NULL;
+	while (stack)
+	{
+		copy = stack_add_back(copy, stack_new(stack->key));
+		stack = stack->next;
+	}
+	return (copy);
 }
 
 void	del_elem(t_stack *elem)

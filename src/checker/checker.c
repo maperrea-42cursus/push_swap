@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 19:53:32 by maperrea          #+#    #+#             */
-/*   Updated: 2021/07/28 22:29:48 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/07/30 18:42:25 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,28 +29,9 @@ char	**read_input(void)
 	return (ft_split(input, '\n'));
 }
 
-t_env	*parse_env(int argc, char **argv)
-{
-	t_env	*env;
-	int		i;
-
-	env = malloc(sizeof(t_env));
-	if (!env)
-		error();
-	env->a = NULL;
-	env->b = NULL;
-	i = 1;
-	while (i < argc)
-	{
-		env->a = stack_add_back(env->a, stack_new(atoi(argv[i])));
-		i++;
-	}
-	return (env);
-}
-
 void	execute_actions(t_env *env, char **actions_str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (actions_str[i])

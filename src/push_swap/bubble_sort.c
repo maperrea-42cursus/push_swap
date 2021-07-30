@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   bubble_sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/12 20:04:09 by maperrea          #+#    #+#             */
-/*   Updated: 2021/07/30 18:44:26 by maperrea         ###   ########.fr       */
+/*   Created: 2021/07/30 18:25:11 by maperrea          #+#    #+#             */
+/*   Updated: 2021/07/30 19:00:19 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "push_swap.h"
 
-# include <unistd.h>
-# include <string.h>
-# include <stdio.h>
-# include <stdlib.h>
+t_stack	*bubble_sort(t_env *env)
+{
+	t_stack *stack;
+	t_stack	*tmp;
+	int		sorted;
 
-# include "global.h"
-
-t_stack			*bubble_sort(t_env *env);
-
-#endif
+	stack = stack_copy(env->a);
+	sorted = 0;
+	while (!sorted)
+	{
+		sorted = 1;
+		tmp = stack;
+		while (tmp && tmp->next)
+		{
+			if (tmp->next->key < tmp->key)
+			{
+				tmp = stack_swap(&stack, tmp, tmp->next);
+				sorted = 0;
+			}
+			tmp = tmp->next;
+		}
+	}
+	return (stack);
+}

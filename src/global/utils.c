@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:37:58 by maperrea          #+#    #+#             */
-/*   Updated: 2021/07/28 21:07:47 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/07/30 18:17:47 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,6 @@ void	error(void)
 	write(1, "Error\n", 6);
 	exit(1);
 }
-
-void	check_dupes(t_env *env)
-{
-	t_stack	*stack;
-
-	stack = env->a;
-	while(stack)
-	{
-		if (stack_find(env->a, stack->key) != stack)
-			error();
-		stack = stack->next;
-	}
-}
-
 
 void	print_stack(t_stack *stack)
 {
@@ -84,4 +70,41 @@ t_action	*get_action(char *str)
 	}
 	error();
 	return (NULL);
+}
+
+void	check_dupes(t_env *env)
+{
+	t_stack	*stack;
+
+	stack = env->a;
+	while(stack)
+	{
+		if (stack_find(env->a, stack->key) != stack)
+			error();
+		stack = stack->next;
+	}
+}
+
+t_env	*parse_env(int argc, char **argv)
+{
+	t_env	*env;
+	int		i;
+	int		j;
+
+	env = malloc(sizeof(t_env));
+	if (!env)
+		error();
+	env->a = NULL;
+	env->b = NULL;
+	i = 1;
+	while (i < argc)
+	{
+		j = 0;
+		while (argv[i][j])
+			if (!ft_isdigit(argv[i][j++]))
+				error();
+		env->a = stack_add_back(env->a, stack_new(atoi(argv[i])));
+		i++;
+	}
+	return (env);
 }
