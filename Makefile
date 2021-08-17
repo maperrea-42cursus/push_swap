@@ -6,7 +6,7 @@
 #    By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/09 22:09:05 by maperrea          #+#    #+#              #
-#    Updated: 2021/07/28 21:06:12 by maperrea         ###   ########.fr        #
+#    Updated: 2021/08/16 14:16:42 by maperrea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,9 +50,7 @@ DEBUG			= -g -fsanitize=address #-D CHECK_LEAKS
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 				$(CC) $(DEBUG) -O3 $(CFLAGS) -I$(INCDIR) -c $^ -o $@
 				
-all:			
-				-make push_swap
-				-make checker
+all:			push_swap checker
 
 $(OBJDIR):
 				mkdir -p $(OBJDIR) $(OBJDIR)/$(GLOBALDIR)\
