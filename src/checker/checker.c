@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 19:53:32 by maperrea          #+#    #+#             */
-/*   Updated: 2021/08/02 15:40:00 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/08/18 18:46:35 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**read_input(void)
 	input = "";
 	while (ret > 0)
 	{
-		ret = read(1, buf, 512);
+		ret = read(0, buf, 512);
 		buf[ret] = 0;
 		input = ft_strjoin(input, buf);
 	}
@@ -49,18 +49,18 @@ int	main(int argc, char **argv)
 	char	**actions_str;
 
 	env = parse_env(argc, argv);
-	print_env(env);
+//	print_env(env);
 	check_dupes(env);
 	actions_str = read_input();
 	execute_actions(env, actions_str);
-	print_env(env);
+//	print_env(env);
 	if (env->b)
 	{
 		ft_putstr_fd("KO\n", 1);
 		exit(1);
 	}
 	stack = env->a;
-	while (stack && stack->next)
+	while (stack && !stack->next->first)
 	{
 		if (stack->next->key < stack->key)
 		{

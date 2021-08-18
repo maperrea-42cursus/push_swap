@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:37:58 by maperrea          #+#    #+#             */
-/*   Updated: 2021/08/17 23:04:40 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/08/18 18:31:23 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,8 @@ int	is_after_rev(t_stack *stack, int index)
 	if (!stack)
 		return (1);
 	if ((stack->index > index && stack->next->index < index)
-			|| (stack->index > index && stack->next->index >= stack->index))
+			|| (stack->next->index >= stack->index
+				&& (index < stack->index || index > stack->next->index)))
 		return (1);
 	return (0);
 }

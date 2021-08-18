@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 18:11:45 by maperrea          #+#    #+#             */
-/*   Updated: 2021/08/17 23:14:48 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/08/18 18:31:42 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,19 @@ int	get_distance_rr(t_env *env, int index)
 	end = 0;
 	if (!env->b)
 		return (0);
-	while (tmp->index > index && !end)
+	while (!is_after_rev(tmp->previous, index) && !end)
 	{
 		dist++;
 		tmp = tmp->next;
 		if (tmp->first)
 			end = 1;
 	}
+//	ft_putstr_fd("index: ", 1);
+//	ft_putnbr_fd(index, 1);
+//	ft_putchar_fd('\n', 1);
+//	ft_putstr_fd("dist: ", 1);
+//	ft_putnbr_fd(dist, 1);
+//	ft_putchar_fd('\n', 1);
 	return (dist);
 }
 
@@ -54,8 +60,13 @@ int get_distance_rrr(t_env *env, int index)
 
 void	apply_rr_sort(t_env *env, int index)
 {
+//	ft_putstr_fd("index: ", 1);
+//	ft_putnbr_fd(index, 1);
+//	ft_putchar_fd('\n', 1);
 	if (!env->b)
 	{
+		pb(env);
+		ft_putstr_fd("pb\n", 1);
 		pb(env);
 		ft_putstr_fd("pb\n", 1);
 		return ;
@@ -106,9 +117,9 @@ void	rr_sort(t_env *env)
 		tmp = tmp->next;
 		i++;
 	}
-	ft_putstr_fd("chosen: ", 1);
-	ft_putnbr_fd(smallest_dist_index, 1);
-	ft_putchar_fd('\n', 1);
+//	ft_putstr_fd("chosen: ", 1);
+//	ft_putnbr_fd(smallest_dist_index, 1);
+//	ft_putchar_fd('\n', 1);
 	apply_rr_sort(env, smallest_dist_index);
 }
 
@@ -116,19 +127,22 @@ void	sort(t_env *env)
 {
 	while (env->a)
 	{
-		print_env(env);
+//		print_env(env);
 		rr_sort(env);
 	}
-	print_env(env);
+//	print_env(env);
 	while (env->b->index < env->b->previous->index)
+	{
+		ft_putstr_fd("rb\n", 1);
 		rb(env);
-	print_env(env);
+	}
+//	print_env(env);
 	while (env->b)
 	{
 		ft_putstr_fd("pa\n", 1);
 		pa(env);
 	}
-	print_env(env);
+//	print_env(env);
 }
 
 int main(int argc, char **argv)
@@ -138,6 +152,6 @@ int main(int argc, char **argv)
 	env = parse_env(argc, argv);
 	check_dupes(env);
 	set_index(env);
-	print_env(env);
 	sort(env);
+//	print_env(env);
 }
