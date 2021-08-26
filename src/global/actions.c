@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:30:40 by maperrea          #+#    #+#             */
-/*   Updated: 2021/08/17 23:10:40 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/08/26 18:31:47 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ t_env *rrb(t_env *env)
 		return (env);
 	env->b->previous->first = 1;
 	env->b->first = 0;
-	env->b = env->a->previous;
+	env->b = env->b->previous;
 	return (env);
 }
 

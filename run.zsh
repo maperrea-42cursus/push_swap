@@ -9,4 +9,4 @@ if [[ $# -eq 0 ]]; then
 fi
 ARG=$(ruby -e "puts (1..$1).to_a.shuffle.join(' ')"); \
 	echo $ARG; \
-	./push_swap ${=ARG} | tee >(wc -l) >(./checker ${=ARG})
+	./push_swap ${=ARG} | tee >(./checker ${=ARG}) >(wc -l)

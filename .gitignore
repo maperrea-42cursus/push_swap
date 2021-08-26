@@ -1,6 +1,7 @@
 *.o
 *.swp
 *.swo
+out
 a.out
 push_swap
 checker

@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:32:18 by maperrea          #+#    #+#             */
-/*   Updated: 2021/08/17 19:57:51 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/08/26 17:56:11 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ typedef struct s_env
 	t_stack			*a;
 	t_stack			*b;
 	int				size;
-	int				size_a;
-	int				size_b;
+	unsigned int	size_a;
+	unsigned int	size_b;
 }				t_env;
 
 typedef t_env *(t_action)(t_env *env);
@@ -54,6 +54,7 @@ void				print_env(t_env *env);
 t_action			*get_action(char *str);
 t_env				*parse_env(int argc, char **argv);
 int					is_after_rev(t_stack *stack, int index);
+unsigned int		ft_abs(int a);
 
 t_stack				*stack_new(int key);
 t_stack				*stack_add_front(t_stack *stack, t_stack *elem);
