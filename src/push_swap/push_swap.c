@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 18:11:45 by maperrea          #+#    #+#             */
-/*   Updated: 2021/08/26 18:03:04 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/22 16:30:59 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,6 @@ int	get_distance_rr(t_env *env, int index)
 		if (tmp->first)
 			end = 1;
 	}
-//	ft_putstr_fd("index: ", 1);
-//	ft_putnbr_fd(index, 1);
-//	ft_putchar_fd('\n', 1);
-//	ft_putstr_fd("dist: ", 1);
-//	ft_putnbr_fd(dist, 1);
-//	ft_putchar_fd('\n', 1);
 	return (dist);
 }
 
@@ -209,10 +203,15 @@ void	sort(t_env *env)
 int main(int argc, char **argv)
 {
 	t_env	*env;
+	t_stack	*longest_sorted;
 
 	env = parse_env(argc, argv);
 	check_dupes(env);
 	set_index(env);
-	sort(env);
-//	print_env(env);
+	longest_sorted = longest_sorted_list(env->a);
+	printf("\n");
+	print_stack(longest_sorted);
+	printf("\n");
+//	sort(env);
+	print_env(env);
 }

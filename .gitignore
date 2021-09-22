@@ -1,9 +1,10 @@
 *.o
 *.swp
 *.swo
+libft.a
 out
 a.out
 push_swap
-checker
+checker*
 !checker/
 !push_swap
