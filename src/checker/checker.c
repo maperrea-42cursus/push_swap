@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 19:53:32 by maperrea          #+#    #+#             */
-/*   Updated: 2021/08/18 18:46:35 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/24 17:35:10 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(int argc, char **argv)
 		exit(1);
 	}
 	stack = env->a;
-	while (stack && !stack->next->first)
+	while (stack->next)
 	{
 		if (stack->next->key < stack->key)
 		{

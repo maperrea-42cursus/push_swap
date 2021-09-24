@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:35:43 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/24 14:57:21 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/24 17:29:25 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ void	del_elem(t_stack *elem)
 void	del_stack(t_stack *stack)
 {
 	t_stack *next;
-	int		end;
 
 	while (stack)
 	{

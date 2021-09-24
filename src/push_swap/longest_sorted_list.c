@@ -6,12 +6,12 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 15:34:28 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/22 18:25:00 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/24 17:34:07 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
+/*
 t_stack_list	**stack_list_add(t_stack_list **list, t_stack *stack)
 {
 	t_stack_list	*new;
@@ -105,7 +105,6 @@ int		get_sorted_length(t_stack *stack, t_stack **longest)
 		list_tmp = list_tmp->next;
 	}
 	printf(">> %d\n", stack->index);
-	/*
 	list_tmp = stack_list;
 	while (list_tmp)
 	{
@@ -113,7 +112,6 @@ int		get_sorted_length(t_stack *stack, t_stack **longest)
 		print_stack(list_tmp->stack);
 		list_tmp = list_tmp->next;
 	}
-	*/
 	return (len);
 }
 
@@ -140,3 +138,4 @@ t_stack	*longest_sorted_list(t_stack *stack)
 	}
 	return (out);
 }
+*/

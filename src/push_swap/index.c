@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 18:25:11 by maperrea          #+#    #+#             */
-/*   Updated: 2021/08/17 20:19:53 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/24 17:33:30 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,12 @@ void	set_index(t_env *env)
 	sorted = bubble_sort(env);
 	i = 0;
 	end = 0;
-	while (!end)
+	while (sorted)
 	{
 		tmp = stack_find(env->a, sorted->key);
 		tmp->index = i;
 		sorted = sorted->next;
 		i++;
-		if (sorted->first)
-			end = 1;
 	}
 	env->size = i;
 }
@@ -46,7 +44,7 @@ t_stack	*bubble_sort(t_env *env)
 	{
 		sorted = 1;
 		tmp = stack;
-		while (!tmp->next->first)
+		while (tmp->next)
 		{
 			if (tmp->next->key < tmp->key)
 			{

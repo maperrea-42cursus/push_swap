@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:37:58 by maperrea          #+#    #+#             */
-/*   Updated: 2021/08/26 17:54:59 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/24 17:31:19 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,16 @@ void	error(void)
 
 void	print_stack(t_stack *stack)
 {
-	int	end;
-
-	end = 0;
 	if (!stack)
 	{
 		ft_putstr_fd("(empty)\n", 1);
 		return ;
 	}
-	while (!end)
+	while (stack)
 	{
 		ft_putnbr_fd(stack->key, 1);
 		ft_putchar_fd('\n', 1);
 		stack = stack->next;
-		if (stack->first)
-			end = 1;
 	}
 }
 
@@ -72,37 +67,6 @@ void	print_stack_index(t_stack *stack)
 
 void	print_env(t_env *env)
 {
-	t_stack	*a;
-	t_stack	*b;
-	int		end;
-
-	a = env->a;
-	b = env->b;
-	end = 0;
-//	while (!end)
-//	{
-//		if (a)
-//		{
-//			ft_putnbr_fd(a->index, 1);
-//			ft_putstr_fd(":", 1);
-//			ft_putnbr_fd(a->key, 1);
-//			a = a->next;
-//		}
-//		else
-//			ft_putchar_fd(' ', 1);
-//		ft_putstr_fd(" | ", 1);
-//		if (b)
-//		{
-//			ft_putnbr_fd(b->index, 1);
-//			ft_putstr_fd(":", 1);
-//			ft_putnbr_fd(b->key, 1);
-//			b = b->next;
-//		}
-//		ft_putchar_fd('\n', 1);
-//		if ((!a || a->first) && (!b || b->first))
-//			end = 1;
-//	}
-//	ft_putstr_fd("__________\n", 1);
 	ft_putstr_fd("stack a:\n", 1);
 	print_stack(env->a);
 	ft_putchar_fd('\n', 1);
@@ -133,13 +97,11 @@ void	check_dupes(t_env *env)
 
 	stack = env->a;
 	end = 0;
-	while(!end)
+	while(stack)
 	{
 		if (stack_find(env->a, stack->key) != stack)
 			error();
 		stack = stack->next;
-		if (stack->first)
-			end = 1;
 	}
 }
 
@@ -164,7 +126,6 @@ t_env	*parse_env(int argc, char **argv)
 		env->a = stack_add_back(env->a, stack_new(atoi(argv[i])));
 		i++;
 	}
-	env->a->first = 1;
 	env->size = argc - 1;
 	env->size_a = argc - 1;
 	env->size_b = 0;
