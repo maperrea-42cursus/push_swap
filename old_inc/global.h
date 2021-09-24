@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:32:18 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/24 14:57:23 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/22 16:19:40 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ typedef struct s_stack
 	int				key;
 	int				index;
 	struct s_stack	*next;
+	struct s_stack	*previous;
+	int				first;
 }				t_stack;
 
 typedef struct s_env
