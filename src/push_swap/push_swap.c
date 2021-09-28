@@ -5,213 +5,103 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/30 18:11:45 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/24 17:42:07 by maperrea         ###   ########.fr       */
+/*   Created: 2021/09/27 15:34:00 by maperrea          #+#    #+#             */
+/*   Updated: 2021/09/28 15:13:09 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	get_distance_rr(t_env *env, int index)
+void	sort_into_chunks(t_env *env)
 {
-	int		dist;
-	t_stack	*tmp;
-	int		end;
+	int		current[2];
+	int		count;
+	int 	size;
 
-	dist = 0;
-	tmp = env->b;
-	end = 0;
-	if (!env->b)
-		return (0);
-	while (!is_after_rev(tmp->previous, index) && !end)
-	{
-		dist++;
-		tmp = tmp->next;
-		if (tmp->first)
-			end = 1;
-	}
-	return (dist);
-}
-
-int get_distance_rrr(t_env *env, int index)
-{
-	int		dist;
-	t_stack	*tmp;
-	int		end;
-
-	dist = 0;
-	tmp = env->b;
-	end = 0;
-	if (!env->b)
-		return (0);
-	while (!is_after_rev(tmp->previous, index) && !end)
-	{
-		dist++;
-		tmp = tmp->previous;
-		if (tmp->first)
-			end = 1;
-	}
-	return (dist);
-}
-
-int get_distance(t_env *env, int index)
-{
-	int	rr;
-	int	rrr;
-
-	rr = get_distance_rr(env, index);
-	rrr = get_distance_rrr(env, index);
-	if (rr <= rrr)
-		return (rr);
-	else
-		return (-rrr);
-}
-
-void	apply_rr_sort(t_env *env, int index)
-{
-//	ft_putstr_fd("index: ", 1);
-//	ft_putnbr_fd(index, 1);
-//	ft_putchar_fd('\n', 1);
-	if (!env->b) //TODO c degolass de mettre ca ici / faire ca
-	{
-		pb(env); 
-		ft_putstr_fd("pb\n", 1);
-		pb(env);
-		ft_putstr_fd("pb\n", 1);
-		return ;
-	}
-	while (env->a->index != index && !is_after_rev(env->b->previous, index))
-	{
-		ft_putstr_fd("rr\n", 1);
-		rr(env);
-	}
-	while (!is_after_rev(env->b->previous, index))
-	{
-		ft_putstr_fd("rb\n", 1);
-		rb(env);
-	}
-	while (env->a->index != index)
-	{
-		ft_putstr_fd("ra\n", 1);
-		ra(env);
-	}
-	ft_putstr_fd("pb\n", 1);
-	pb(env);
-}
-
-void	apply_rrr_sort(t_env *env, int index)
-{
-//	ft_putstr_fd("index: ", 1);
-//	ft_putnbr_fd(index, 1);
-//	ft_putchar_fd('\n', 1);
-	if (!env->b) //TODO c degolass de mettre ca ici / faire ca
-	{
-		pb(env); 
-		ft_putstr_fd("pb\n", 1);
-		pb(env);
-		ft_putstr_fd("pb\n", 1);
-		return ;
-	}
-	while (env->a->index != index && !is_after_rev(env->b->previous, index))
-	{
-		ft_putstr_fd("rrr\n", 1);
-		rrr(env);
-	}
-	while (!is_after_rev(env->b->previous, index))
-	{
-		ft_putstr_fd("rrb\n", 1);
-		rrb(env);
-	}
-	while (env->a->index != index)
-	{
-		ft_putstr_fd("rra\n", 1);
-		rra(env);
-	}
-	ft_putstr_fd("pb\n", 1);
-	pb(env);
-}
-
-//TODO mix rr and rrr ex: rra to get number and rb to get place
-void	rr_sort(t_env *env)
-{
-	int					dist;
-	int					smallest_dist;
-	int					smallest_dist_index;
-	unsigned int		i;
-	t_stack				*tmp;
-
-	i = 1;
-	tmp = env->a;
-	smallest_dist = get_distance(env, tmp->index);
-	smallest_dist_index = tmp->index;
-	tmp = tmp->next;
-	while (!tmp->first)
-	{
-		dist = get_distance(env, tmp->index);
-		if (ft_abs(dist) < ft_abs(smallest_dist))
-		{
-			if (dist >= 0)
-			{
-				if (ft_abs(dist) > i)
-					smallest_dist = dist;
-				else
-					smallest_dist = i;
-			}
-			else
-			{
-				if (ft_abs(dist) > env->size_a - i)
-					smallest_dist = dist;
-				else
-					smallest_dist = env->size_a - i;
-			}
-			smallest_dist_index = tmp->index;
-		}
-		tmp = tmp->next;
-		i++;
-	}
-//	ft_putstr_fd("chosen: ", 1);
-//	ft_putnbr_fd(smallest_dist_index, 1);
-//	ft_putchar_fd('\n', 1);
-	if (dist >= 0)
-		apply_rr_sort(env, smallest_dist_index);
-	else 
-		apply_rrr_sort(env, smallest_dist_index);
-}
-
-void	sort(t_env *env)
-{
+	current[1] = (env->chunks / 2) - (env->chunks % 2 == 0);
+	current[0] = (env->chunks / 2);
+	count = 0;
+	size = env->size_a;
 	while (env->a)
 	{
-//		print_env(env);
-		rr_sort(env);
+		if (env->a->chunk != current[0] && env->a->chunk != current[1])
+		{
+			count++;
+			if (env->b && env->b->chunk == current[1] && current[1] != current[0])
+				rr_print(env);
+			else
+				ra_print(env);
+		}
+		if (env->a->chunk == current[0] || env->a->chunk == current[1])
+		{
+			count++;
+			pb_print(env);
+			if (env->b->chunk == current[1] && current[1] != current[0]
+					&& (!env->a || env->a->chunk == current[0]
+						|| env->a->chunk == current[1]))
+				rb_print(env);
+		}
+		if (count == size)
+		{
+			count = 0;
+			size = env->size_a;
+			current[0]++;
+			current[1]--;
+		}
 	}
-//	print_env(env);
-	while (env->b->index < env->b->previous->index)
-	{ //TODO do with rrb if faster
-		ft_putstr_fd("rb\n", 1);
-		rb(env);
+}
+
+int		get_distance(t_stack *stack, int size, int index)
+{
+	int		dist;
+
+	dist = 0;
+	while (stack->index != index)
+	{
+		dist++;
+		stack = stack->next;
 	}
-//	print_env(env);
+	if (dist > size / 2)
+		dist = dist - size;
+	return (dist);
+}
+
+void	apply_rotation_b(t_env *env, int amount)
+{
+	while (amount > 0)
+	{
+		rb_print(env);
+		amount--;
+	}
+	while (amount < 0)
+	{
+		rrb_print(env);
+		amount++;
+	}
+}
+
+void	sort_chunks(t_env *env)
+{
+	int	current;
+
+	current = env->size - 1;
 	while (env->b)
 	{
-		ft_putstr_fd("pa\n", 1);
-		pa(env);
+		apply_rotation_b(env, get_distance(env->b, env->size_b, current));
+		pa_print(env);
+		current--;
 	}
-//	print_env(env);
 }
 
 int main(int argc, char **argv)
 {
 	t_env	*env;
-	t_stack	*longest_sorted;
 
 	env = parse_env(argc, argv);
 	check_dupes(env);
 	set_index(env);
-	longest_sorted = longest_sorted_list(env->a);
-	printf("\n");
-	print_stack(longest_sorted);
-	printf("\n");
-//	sort(env);
-	print_env(env);
+	set_chunks(env);
+	sort_into_chunks(env);
+	sort_chunks(env);
+	//print_env(env);
 }

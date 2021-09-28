@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:35:43 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/24 17:29:25 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/28 13:40:41 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ t_stack *stack_find(t_stack *stack, int key)
 
 t_stack	*stack_previous(t_stack *stack, t_stack *elem)
 {
+	if (stack == elem)
+		return (NULL);
 	while (stack)
 	{
 		if (stack->next == elem)
@@ -81,7 +83,12 @@ t_stack	*stack_previous(t_stack *stack, t_stack *elem)
 t_stack	*stack_swap(t_stack **stack, t_stack *elem1, t_stack *elem2)
 {
 	if (*stack == elem1)
+	{
 		*stack = elem2;
+		elem1->next = elem2->next;
+		elem2->next = elem1;
+		return (elem2);
+	}
 	elem1->next = elem2->next;
 	elem2->next = elem1;
 	stack_previous(*stack, elem1)->next = elem2;

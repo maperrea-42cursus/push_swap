@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:32:18 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/24 17:28:52 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/28 14:41:04 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 typedef struct s_stack
 {
 	int				key;
+	int				chunk;
 	int				index;
 	struct s_stack	*next;
 }				t_stack;
@@ -32,6 +33,7 @@ typedef struct s_env
 	t_stack			*a;
 	t_stack			*b;
 	int				size;
+	int				chunks;
 	unsigned int	size_a;
 	unsigned int	size_b;
 }				t_env;
@@ -48,6 +50,7 @@ void				error(void);
 void				check_dupes(t_env *env);
 void				print_stack(t_stack *stack);
 void				print_stack_index(t_stack *stack);
+void				print_stack_chunk(t_stack *stack);
 void				print_env(t_env *env);
 t_action			*get_action(char *str);
 t_env				*parse_env(int argc, char **argv);
@@ -78,4 +81,16 @@ t_env				*rr(t_env *env);
 t_env				*rra(t_env *env);
 t_env				*rrb(t_env *env);
 t_env				*rrr(t_env *env);
+
+t_env				*sa_print(t_env *env);
+t_env				*sb_print(t_env *env);
+t_env				*ss_print(t_env *env);
+t_env				*pa_print(t_env *env);
+t_env				*pb_print(t_env *env);
+t_env				*ra_print(t_env *env);
+t_env				*rb_print(t_env *env);
+t_env				*rr_print(t_env *env);
+t_env				*rra_print(t_env *env);
+t_env				*rrb_print(t_env *env);
+t_env				*rrr_print(t_env *env);
 #endif

@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:37:58 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/24 17:31:19 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/28 15:58:58 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,23 @@ void	print_stack_index(t_stack *stack)
 	while (stack)
 	{
 		ft_putnbr_fd(stack->index, 1);
+		ft_putstr_fd(" | ", 1);
+		ft_putnbr_fd(stack->key, 1);
+		ft_putchar_fd('\n', 1);
+		stack = stack->next;
+	}
+}
+
+void	print_stack_chunk(t_stack *stack)
+{
+	if (!stack)
+	{
+		ft_putstr_fd("(empty)\n", 1);
+		return ;
+	}
+	while (stack)
+	{
+		ft_putnbr_fd(stack->chunk, 1);
 		ft_putstr_fd(" | ", 1);
 		ft_putnbr_fd(stack->key, 1);
 		ft_putchar_fd('\n', 1);
@@ -130,6 +147,17 @@ t_env	*parse_env(int argc, char **argv)
 	env->size_a = argc - 1;
 	env->size_b = 0;
 	return (env);
+}
+
+int	is_after(t_stack *stack, int index)
+{
+	if (!stack)
+		return (1);
+	if ((stack->index < index && stack->next->index > index)
+			|| (stack->next->index <= stack->index
+				&& (index > stack->index || index < stack->next->index)))
+		return (1);
+	return (0);
 }
 
 int	is_after_rev(t_stack *stack, int index)
