@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 15:34:00 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/28 20:20:28 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/28 20:24:09 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int		get_pos_distance(t_stack *stack, int size, int index)
 	return (dist);
 }
 
+//TODO c'est casse lol (pas lol)
 int		num_operation_to_set(t_env *env, int index)
 {
 	int	dist;
@@ -121,14 +122,12 @@ void	apply_rotation_b(t_env *env, int amount)
 
 void	set_number(t_env *env, int index, int rotations)
 {
-	/*
+	print_env(env);
 	ft_putstr_fd(">>> ", 1);
 	ft_putnbr_fd(index, 1);
 	ft_putstr_fd(" | ", 1);
 	ft_putnbr_fd(rotations, 1);
 	ft_putstr_fd("\n", 1);
-	print_env(env);
-	*/
 	if (rotations >= 0)
 	{
 		while (!is_after(env->a, stack_previous(env->a, NULL), index) && env->b->index != index)
