@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 18:11:45 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/22 16:30:59 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/28 18:18:12 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,9 +169,6 @@ void	rr_sort(t_env *env)
 		tmp = tmp->next;
 		i++;
 	}
-//	ft_putstr_fd("chosen: ", 1);
-//	ft_putnbr_fd(smallest_dist_index, 1);
-//	ft_putchar_fd('\n', 1);
 	if (dist >= 0)
 		apply_rr_sort(env, smallest_dist_index);
 	else 

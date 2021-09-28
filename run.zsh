@@ -9,6 +9,6 @@ if [[ $# -eq 0 ]]; then
 fi
 #for i in {0..99}; do
 	ARG=$(ruby -e "puts (0...$1).to_a.shuffle.join(' ')"); \
-		echo $ARG; \
-		./push_swap ${=ARG}  | tee >(wc -l)  | ./checker ${=ARG};
+#		echo $ARG; \
+		./push_swap ${=ARG}  | tee >(wc -l) # | ./checker ${=ARG};
 #done

@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:32:18 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/28 14:41:04 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/28 20:11:00 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void				print_env(t_env *env);
 t_action			*get_action(char *str);
 t_env				*parse_env(int argc, char **argv);
 int					is_after_rev(t_stack *stack, int index);
+int					is_after(t_stack *start, t_stack *stack, int index);
 unsigned int		ft_abs(int a);
 
 t_stack				*stack_new(int key);

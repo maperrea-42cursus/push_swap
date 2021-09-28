@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:37:58 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/28 15:58:58 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/28 20:19:55 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,10 +149,16 @@ t_env	*parse_env(int argc, char **argv)
 	return (env);
 }
 
-int	is_after(t_stack *stack, int index)
+int	is_after(t_stack *start, t_stack *stack, int index)
 {
 	if (!stack)
 		return (1);
+	if (!stack->next && ((stack->index < index && start->index > index)
+			|| (start->index <= stack->index
+				&& (index > stack->index || index < start->index))))
+		return (1);
+	if (!stack->next)
+		return (0);
 	if ((stack->index < index && stack->next->index > index)
 			|| (stack->next->index <= stack->index
 				&& (index > stack->index || index < stack->next->index)))
