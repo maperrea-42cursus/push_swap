@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:37:58 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/28 20:19:55 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/29 15:18:52 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,20 +151,48 @@ t_env	*parse_env(int argc, char **argv)
 
 int	is_after(t_stack *start, t_stack *stack, int index)
 {
+	int current;
+	int next;
+
+	/*
+	ft_putstr_fd(">>>>> ", 1);
+	ft_putnbr_fd((int)stack, 1);
+	ft_putstr_fd(" <<<<<\n", 1);
+	*/
 	if (!stack)
 		return (1);
-	if (!stack->next && ((stack->index < index && start->index > index)
-			|| (start->index <= stack->index
-				&& (index > stack->index || index < start->index))))
-		return (1);
+	current = stack->index;
 	if (!stack->next)
-		return (0);
-	if ((stack->index < index && stack->next->index > index)
-			|| (stack->next->index <= stack->index
-				&& (index > stack->index || index < stack->next->index)))
+		next = start->index;
+	else
+		next = stack->next->index;
+	/*
+	ft_putstr_fd("> ", 1);
+	ft_putnbr_fd(index, 1);
+	ft_putstr_fd(" | ", 1);
+	ft_putnbr_fd(current, 1);
+	ft_putstr_fd(" | ", 1);
+	ft_putnbr_fd(next, 1);
+	ft_putstr_fd("\n", 1);
+	*/
+	if (current == next)
+		return (1);
+	if ((current < index && index < next)
+			|| (next < current && (current < index || index < next)))
 		return (1);
 	return (0);
 }
+/*
+	if (!stack->next && ((stack->index < index && start->index > index)
+			|| (start->index <= stack->index
+				&& (index > stack->index || index < start->index))))
+	{
+		ft_putstr_fd("b\n", 1);
+		return (1);
+	}
+	if (!stack->next)
+		return (0);
+		*/
 
 int	is_after_rev(t_stack *stack, int index)
 {
