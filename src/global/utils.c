@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:37:58 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/29 15:18:52 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/29 20:15:45 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,17 @@ int	is_after_rev(t_stack *stack, int index)
 				&& (index < stack->index || index > stack->next->index)))
 		return (1);
 	return (0);
+}
+
+int is_sorted(t_stack *stack)
+{
+	while (stack->next)
+	{
+		if (stack->next->key < stack->key)
+			return (0);
+		stack = stack->next;
+	}
+	return(1);
 }
 
 unsigned int	ft_abs(int a)

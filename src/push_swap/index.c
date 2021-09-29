@@ -6,12 +6,13 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 18:25:11 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/29 15:15:33 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/29 17:40:30 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+/*
 const static int g_sqrt[23][2] = 
 {
 	{1, 1},
@@ -38,19 +39,28 @@ const static int g_sqrt[23][2] =
 	{484, 22},
 	{529, 23}
 };
+*/
 
 int		get_sqrt(int n)
 {
 	int i;
 
-	i = 0;
-	while (i < 22)
+	i = 1;
+	while (i * i > 0)
 	{
-		if (g_sqrt[i + 1][0] > n)
-			return (g_sqrt[i][1]);
+		if (i * i > n)
+			return (i - 1);
 		i++;
 	}
-	return (g_sqrt[22][1]);
+	return (-1);
+}
+
+int		get_chunk(int chunk_size, int extra, int index)
+{
+	if (index > (chunk_size + 1) * extra)
+		return (((index - ((chunk_size + 1) * extra)) / chunk_size) + extra);
+	else
+		return (index / (chunk_size + 1));
 }
 
 void	set_chunks(t_env *env)
@@ -59,13 +69,15 @@ void	set_chunks(t_env *env)
 	t_stack	*tmp;
 	int		extra;
 
+//	printf("sqrt: %d\n", get_sqrt(env->size));
 	env->chunks = (get_sqrt(env->size) + 1) / 2;
 	chunk_size = env->size / env->chunks;
 	extra = env->size % env->chunks;
+//	printf("chunks: %d\nsize: %d\n", env->chunks, chunk_size);
 	tmp = env->a;
 	while (tmp)
 	{
-		tmp->chunk = tmp->index / chunk_size;
+		tmp->chunk = get_chunk(chunk_size, extra, tmp->index);
 		tmp = tmp->next;
 	}
 }

@@ -6,11 +6,12 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 15:34:28 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/27 16:26:04 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/29 20:20:30 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
 /*
 t_stack_list	**stack_list_add(t_stack_list **list, t_stack *stack)
 {
@@ -21,8 +22,6 @@ t_stack_list	**stack_list_add(t_stack_list **list, t_stack *stack)
 		error();
 	new->stack = stack;
 	stack->next = stack;
-	stack->previous = stack;
-	stack->first = 1;
 	new->next = NULL;
 	if(!*list)
 	{
@@ -49,12 +48,12 @@ void	add_in_lists(t_stack_list *list, t_stack *elem, t_stack *stack)
 	{
 		i = 1;
 		tmp = list_tmp->stack->next;
-		while (!tmp->first)
+		while (tmp)
 		{
 			i++;
 			tmp = tmp->next;
 		}
-		if (i > len && elem->index > tmp->previous->index)
+		if (i > len && elem->index > stack_previous(tmp)->index)
 		{
 			len = i;
 			longest = list_tmp->stack;
@@ -82,7 +81,7 @@ int		get_sorted_length(t_stack *stack, t_stack **longest)
 	len = 0;
 	stack_list_add(&stack_list, stack_copy_one(stack));
 	tmp = stack->next;
-	while (!tmp->first)
+	while (tmp)
 	{
 		add_in_lists(stack_list, stack_copy_one(tmp), stack);
 		tmp = tmp->next;
@@ -92,7 +91,7 @@ int		get_sorted_length(t_stack *stack, t_stack **longest)
 	{
 		i = 1;
 		tmp = list_tmp->stack->next;
-		while (!tmp->first)
+		while (tmp)
 		{
 			i++;
 			tmp = tmp->next;
@@ -126,7 +125,7 @@ t_stack	*longest_sorted_list(t_stack *stack)
 	tmp = stack;
 	length = get_sorted_length(tmp, &out);
 	tmp = tmp->next;
-	while (!tmp->first)
+	while (tmp)
 	{
 		i = get_sorted_length(tmp, &longest);
 		if (i > length)

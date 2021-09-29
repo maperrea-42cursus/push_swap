@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 19:53:32 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/24 17:35:10 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/29 20:15:45 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	execute_actions(t_env *env, char **actions_str)
 int	main(int argc, char **argv)
 {
 	t_env	*env;
-	t_stack	*stack;
 	char	**actions_str;
 
 	env = parse_env(argc, argv);
@@ -54,20 +53,10 @@ int	main(int argc, char **argv)
 	actions_str = read_input();
 	execute_actions(env, actions_str);
 //	print_env(env);
-	if (env->b)
+	if (env->b || !is_sorted(env->a))
 	{
 		ft_putstr_fd("KO\n", 1);
 		exit(1);
-	}
-	stack = env->a;
-	while (stack->next)
-	{
-		if (stack->next->key < stack->key)
-		{
-			ft_putstr_fd("KO\n", 1);
-			exit(1);
-		}
-		stack = stack->next;
 	}
 	ft_putstr_fd("OK\n", 1);
 }

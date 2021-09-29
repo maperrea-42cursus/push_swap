@@ -6,11 +6,33 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 15:34:00 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/29 15:25:11 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/29 20:22:55 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+/*
+const static t_hash	perm_3_a[6] =
+{
+	{{0, 1, 2}, {NULL}},
+	{{0, 2, 1}, {"sa", "ra", NULL}},
+	{{1, 0, 2}, {"sa", NULL}},
+	{{1, 2, 0}, {"rra", NULL}}, 
+	{{2, 0, 1}, {"ra", NULL}}, 
+	{{2, 1, 0}, {"sa", "rra", NULL}}
+}
+
+const static t_hash	perm_3_b[6] =
+{
+	{{0, 1, 2}, {NULL}},
+	{{0, 2, 1}, {"sb", "rb", NULL}},
+	{{1, 0, 2}, {"sb", NULL}},
+	{{1, 2, 0}, {"rrb", NULL}}, 
+	{{2, 0, 1}, {"rb", NULL}}, 
+	{{2, 1, 0}, {"sb", "rrb", NULL}}
+}
+*/
 
 void	sort_into_chunks(t_env *env)
 {
@@ -88,7 +110,6 @@ int		get_pos_distance(t_stack *stack, int size, int index)
 	return (dist);
 }
 
-//TODO c'est casse lol (pas lol)
 int		num_operation_to_set(t_env *env, int index)
 {
 	int	dist;
@@ -192,31 +213,65 @@ void	sort_chunks_1(t_env *env)
 	}
 }
 
+int	has_chunk(t_stack *stack, int chunk)
+{
+	while (stack)
+	{
+		if (stack->chunk == chunk)
+			return (1);
+		stack = stack->next;
+	}
+	return (0);
+}
+
 void	sort_chunks_2(t_env *env)
 {
 	int		dist;
 	int		fastest;
 	int		fastest_index;
+	int		chunk;
 	t_stack	*tmp;
+
+	chunk = env->chunks - 1;
 	while (env->b)
 	{
-		tmp = env->b;
-		fastest = num_operation_to_set(env, tmp->index);
-		fastest_index = tmp->index;
-		tmp = tmp->next;
-		while (tmp)
+		while (has_chunk(env->b, chunk))
 		{
-			dist = num_operation_to_set(env, tmp->index);
-			if (ft_abs(dist) < ft_abs(fastest))
-			{
-				fastest = dist;
-				fastest_index = tmp->index;
-			}
+			tmp = env->b;
+			while (tmp->chunk != chunk)
+				tmp = tmp->next;
+			fastest = num_operation_to_set(env, tmp->index);
+			fastest_index = tmp->index;
 			tmp = tmp->next;
+			while (tmp)
+			{
+				dist = num_operation_to_set(env, tmp->index);
+				if (tmp->chunk == chunk && ft_abs(dist) < ft_abs(fastest))
+				{
+					fastest = dist;
+					fastest_index = tmp->index;
+				}
+				tmp = tmp->next;
+			}
+			/*
+			ft_putstr_fd("\n++++++\n", 1);
+			print_env(env);
+			ft_putstr_fd("\n >> ", 1);
+			ft_putnbr_fd(fastest_index, 1);
+			ft_putstr_fd(" | ", 1);
+			ft_putnbr_fd(fastest, 1);
+			ft_putstr_fd("\n", 1);
+			*/
+			set_number(env, fastest_index, fastest);
 		}
-		set_number(env, fastest_index, fastest);
+		chunk--;
 	}
 	apply_rotation_a(env, get_distance(env->a, env->size_a, 0));
+}
+
+void	single_chunk(t_env *env)
+{
+	
 }
 
 int main(int argc, char **argv)
@@ -228,6 +283,7 @@ int main(int argc, char **argv)
 	set_index(env);
 	set_chunks(env);
 	sort_into_chunks(env);
-	sort_chunks_1(env);
+//	print_stack_chunk(env->b);
+	sort_chunks_2(env);
 	//print_env(env);
 }
