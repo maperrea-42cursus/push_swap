@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 20:04:09 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/29 20:15:45 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/30 14:16:28 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ typedef struct s_stack_list
 
 typedef struct s_hash
 {
-	int		*pattern;
-	char	**operations;
+	int				pattern;
+	int				count;
+	t_action		*action[6];
 }				t_hash;
 
 

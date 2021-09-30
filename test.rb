@@ -9,6 +9,11 @@ if ARGV.length != 2
 end
 
 system("make -C #{PATH}", [:out, :err ] => File::NULL)
+if $?.exitstatus != 0
+	puts "make failed"
+	exit
+end
+
 
 if !File.file?("#{PATH}push_swap")
 	puts "executable not found, check path or executable name"
@@ -41,7 +46,8 @@ slowest_input = ""
 			end
 		end
 	end
-	count = out.split("\n", -1).length - 1 #because of last \n
+	count = out.split("\n", -1).length
+	count -= 1 if count != 0 #because of last \n
 	if count > max
 		max = count
 		slowest_input = arg
