@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:32:18 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/29 19:15:49 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/30 17:09:40 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include "libft.h"
-
 
 typedef struct s_stack
 {
@@ -38,7 +37,7 @@ typedef struct s_env
 	unsigned int	size_b;
 }				t_env;
 
-typedef t_env *(t_action)(t_env *env);
+typedef	t_env	*(t_action)(t_env *env);
 
 typedef struct s_dict
 {
@@ -66,7 +65,8 @@ t_stack				*stack_insert(t_stack *stack, t_stack *elem);
 t_stack				*stack_previous(t_stack *stack, t_stack *elem);
 t_stack				*stack_last(t_stack *stack);
 t_stack				*stack_find(t_stack *stack, int key);
-t_stack				*stack_swap(t_stack **stack, t_stack *elem1, t_stack *elem2);
+t_stack				*stack_swap(t_stack **stack,
+						t_stack *elem1, t_stack *elem2);
 t_stack				*stack_copy(t_stack *stack);
 t_stack				*stack_copy_one(t_stack *elem);
 void				del_elem(t_stack *elem);

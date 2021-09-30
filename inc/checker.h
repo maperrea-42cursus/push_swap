@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:32:26 by maperrea          #+#    #+#             */
-/*   Updated: 2021/07/21 14:32:53 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/30 17:10:03 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,5 @@
 # include <stdlib.h>
 
 # include "global.h"
-
 
 #endif

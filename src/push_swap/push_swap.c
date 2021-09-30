@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 15:34:00 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/30 17:03:02 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/09/30 17:16:06 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ const static t_hash g_perm_2_a[2] =
 	{10, 1, {&sa_print}}
 };
 
-const static t_hash g_perm_2_b[2] = 
+const static t_hash g_perm_2_b[2] =
 {
 	{10, 0, {NULL}},
 	{1, 1, {&sb_print}}
@@ -321,15 +321,6 @@ void	sort_chunks_2(t_env *env)
 				}
 				tmp = tmp->next;
 			}
-			/*
-			ft_putstr_fd("\n++++++\n", 1);
-			print_env(env);
-			ft_putstr_fd("\n >> ", 1);
-			ft_putnbr_fd(fastest_index, 1);
-			ft_putstr_fd(" | ", 1);
-			ft_putnbr_fd(fastest, 1);
-			ft_putstr_fd("\n", 1);
-			*/
 			set_number(env, fastest_index, fastest);
 		}
 		chunk--;
@@ -358,12 +349,6 @@ void	sort_hardcode(t_env *env, const t_hash *perm, int stack_nb, int offset)
 		stack = stack->next;
 	}
 	hash = hash / factor;
-	/*
-	hash = (stack->index - offset) * 1000
-		+ (stack->next->index - offset) * 100
-		+ (stack->next->next->index - offset) * 10
-		+ (stack->next->next->next->index - offset);
-		*/
 	i = 0;
 	while (perm[i].pattern != hash)
 		i++;
