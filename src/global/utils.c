@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:37:58 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/29 20:15:45 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/10/01 14:48:59 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,10 +137,12 @@ t_env	*parse_env(int argc, char **argv)
 	while (i < argc)
 	{
 		j = 0;
+		if (argv[i][j] == '-')
+			j++;
 		while (argv[i][j])
 			if (!ft_isdigit(argv[i][j++]))
 				error();
-		env->a = stack_add_back(env->a, stack_new(atoi(argv[i])));
+		env->a = stack_add_back(env->a, stack_new(ft_atoi(argv[i])));
 		i++;
 	}
 	env->size = argc - 1;

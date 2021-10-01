@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 15:34:00 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/30 17:16:06 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/10/01 14:45:22 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,33 +178,33 @@ int		get_pos_distance(t_stack *stack, int size, int index)
 	return (dist);
 }
 
-int		num_operation_to_set(t_env *env, int index)
+int		num_operation_to_set(t_env *env, int index, int *same_direction)
 {
 	int	dist;
 	int pos_dist;
 
 	dist = get_distance(env->b, env->size_b, index);
 	pos_dist = get_pos_distance(env->a, env->size_a, index);
-	/*
-	ft_putstr_fd(">>>>>>>>\n", 1);
-	ft_putnbr_fd(index, 1);
-	ft_putstr_fd("\n", 1);
-	ft_putnbr_fd(dist, 1);
-	ft_putstr_fd("\n", 1);
-	ft_putnbr_fd(pos_dist, 1);
-	ft_putstr_fd("\n<<<<<<<<\n", 1);
-	*/
+	*same_direction = 1;
 	if ((dist >= 0 && pos_dist >= 0) || (dist <= 0 && pos_dist <= 0))
 	{
 		if (ft_abs(dist) > ft_abs(pos_dist))
 			return (dist);
-		return (pos_dist);
+		else
+			return (pos_dist);
 	}
 	else
 	{
-		if (env->size_b - ft_abs(dist) <= env->size_a - ft_abs(pos_dist))
+		if (ft_abs(dist) + ft_abs(pos_dist) < env->size_b - ft_abs(dist)
+				&& ft_abs(dist) + ft_abs(pos_dist) < env->size_a - ft_abs(pos_dist))
+		{
+			*same_direction = 0;
+			return (ft_abs(dist) + ft_abs(pos_dist));
+		}
+		else if (env->size_b - ft_abs(dist) <= env->size_a - ft_abs(pos_dist))
 			return ((env->size_b - ft_abs(dist)) * (1 - (2 * (dist > 0))));
-		return ((env->size_a - ft_abs(pos_dist)) * (1 - (2 * (pos_dist > 0))));
+		else
+			return ((env->size_a - ft_abs(pos_dist)) * (1 - (2 * (pos_dist > 0))));
 	}
 }
 
@@ -236,36 +236,20 @@ void	apply_rotation_a(t_env *env, int amount)
 	}
 }
 
-void	set_number(t_env *env, int index, int rotations)
+void	set_number(t_env *env, int index, int rotations, int same_direction)
 {
-	/*
-	ft_putstr_fd(">>> ", 1);
-	ft_putnbr_fd(index, 1);
-	ft_putstr_fd(" | ", 1);
-	ft_putnbr_fd(rotations, 1);
-	ft_putstr_fd("\n", 1);
-	*/
-	if (rotations >= 0)
+	if (same_direction)
 	{
-		while (!is_after(env->a, stack_previous(env->a, NULL), index) && env->b->index != index)
-			rr_print(env);
-		while (!is_after(env->a, stack_previous(env->a, NULL), index))
-			ra_print(env);
-		while (env->b->index != index)
-			rb_print(env);
-		pa_print(env);
+		if (rotations >= 0)
+			while (!is_after(env->a, stack_previous(env->a, NULL), index) && env->b->index != index)
+				rr_print(env);
+		else
+			while (!is_after(env->a, stack_previous(env->a, NULL), index) && env->b->index != index)
+				rrr_print(env);
 	}
-	else
-	{
-		while (!is_after(env->a, stack_previous(env->a, NULL), index) && env->b->index != index)
-			rrr_print(env);
-		while (!is_after(env->a, stack_previous(env->a, NULL), index))
-			rra_print(env);
-		while (env->b->index != index)
-			rrb_print(env);
-		pa_print(env);
-	}
-//	ft_putstr_fd("\n+++++++++++++++++++++++\n", 1);
+	apply_rotation_b(env, get_distance(env->b, env->size_b, index));
+	apply_rotation_a(env, get_pos_distance(env->a, env->size_a, index));
+	pa_print(env);
 }
 
 void	sort_chunks_1(t_env *env)
@@ -298,6 +282,8 @@ void	sort_chunks_2(t_env *env)
 	int		fastest;
 	int		fastest_index;
 	int		chunk;
+	int		direction;
+	int		fastest_direction;
 	t_stack	*tmp;
 
 	chunk = env->chunks - 1;
@@ -308,20 +294,21 @@ void	sort_chunks_2(t_env *env)
 			tmp = env->b;
 			while (tmp->chunk != chunk)
 				tmp = tmp->next;
-			fastest = num_operation_to_set(env, tmp->index);
+			fastest = num_operation_to_set(env, tmp->index, &fastest_direction);
 			fastest_index = tmp->index;
 			tmp = tmp->next;
 			while (tmp)
 			{
-				dist = num_operation_to_set(env, tmp->index);
+				dist = num_operation_to_set(env, tmp->index, &direction);
 				if (tmp->chunk == chunk && ft_abs(dist) < ft_abs(fastest))
 				{
 					fastest = dist;
 					fastest_index = tmp->index;
+					fastest_direction = direction;
 				}
 				tmp = tmp->next;
 			}
-			set_number(env, fastest_index, fastest);
+			set_number(env, fastest_index, fastest, direction);
 		}
 		chunk--;
 	}
@@ -403,11 +390,12 @@ void	single_chunk(t_env *env)
 		pa_print(env);
 }
 
-
 int main(int argc, char **argv)
 {
 	t_env	*env;
 
+	if (argc == 1)
+		return (0);
 	env = parse_env(argc, argv);
 	check_dupes(env);
 	set_index(env);
@@ -421,6 +409,4 @@ int main(int argc, char **argv)
 		sort_into_chunks(env);
 		sort_chunks_2(env);
 	}
-//	print_stack_chunk(env->b)
-//	print_env(env);
 }

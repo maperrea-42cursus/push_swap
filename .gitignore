@@ -5,6 +5,7 @@ libft.a
 out
 a.out
 push_swap
+push_swap_visualizer
 checker*
 !checker/
 !push_swap/
