@@ -6,14 +6,14 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:36:13 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/28 14:38:55 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/10/01 15:09:25 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
 
 //swap first two of a
-t_env *sa_print(t_env *env)
+t_env	*sa_print(t_env *env)
 {
 	if (!env->a)
 		return (env);
@@ -23,7 +23,7 @@ t_env *sa_print(t_env *env)
 }
 
 //swap first two of b
-t_env *sb_print(t_env *env)
+t_env	*sb_print(t_env *env)
 {
 	if (!env->b)
 		return (env);
@@ -33,7 +33,7 @@ t_env *sb_print(t_env *env)
 }
 
 //sa and ss at the same time
-t_env *ss_print(t_env *env)
+t_env	*ss_print(t_env *env)
 {
 	sa(env);
 	sb(env);
@@ -42,9 +42,9 @@ t_env *ss_print(t_env *env)
 }
 
 //put first of b on top of a
-t_env *pa_print(t_env *env)
+t_env	*pa_print(t_env *env)
 {
-	t_stack *tmp;
+	t_stack	*tmp;
 
 	if (!env->b)
 		return (env);
@@ -54,15 +54,15 @@ t_env *pa_print(t_env *env)
 	env->a = stack_add_front(env->a, env->b);
 	env->b = tmp;
 	env->size_a++;
-	env->size_b--;;
+	env->size_b--;
 	write(1, "pa\n", 3);
 	return (env);
 }
 
 //put first of a on top of b
-t_env *pb_print(t_env *env)
+t_env	*pb_print(t_env *env)
 {
-	t_stack *tmp;
+	t_stack	*tmp;
 
 	if (!env->a)
 		return (env);
@@ -72,13 +72,13 @@ t_env *pb_print(t_env *env)
 	env->b = stack_add_front(env->b, env->a);
 	env->a = tmp;
 	env->size_b++;
-	env->size_a--;;
+	env->size_a--;
 	write(1, "pb\n", 3);
 	return (env);
 }
 
 //put first of a at the end
-t_env *ra_print(t_env *env)
+t_env	*ra_print(t_env *env)
 {
 	t_stack	*tmp;
 
@@ -93,7 +93,7 @@ t_env *ra_print(t_env *env)
 }
 
 //put first of b at the end
-t_env *rb_print(t_env *env)
+t_env	*rb_print(t_env *env)
 {
 	t_stack	*tmp;
 
@@ -108,7 +108,7 @@ t_env *rb_print(t_env *env)
 }
 
 //ra and rb
-t_env *rr_print(t_env *env)
+t_env	*rr_print(t_env *env)
 {
 	ra(env);
 	rb(env);
@@ -117,7 +117,7 @@ t_env *rr_print(t_env *env)
 }
 
 //put last of a at the beginning
-t_env *rra_print(t_env *env)
+t_env	*rra_print(t_env *env)
 {
 	t_stack	*tmp;
 
@@ -132,7 +132,7 @@ t_env *rra_print(t_env *env)
 }
 
 //put last of b at the beginning
-t_env *rrb_print(t_env *env)
+t_env	*rrb_print(t_env *env)
 {
 	t_stack	*tmp;
 
@@ -147,7 +147,7 @@ t_env *rrb_print(t_env *env)
 }
 
 //rra and rrb
-t_env *rrr_print(t_env *env)
+t_env	*rrr_print(t_env *env)
 {
 	rra(env);
 	rrb(env);
