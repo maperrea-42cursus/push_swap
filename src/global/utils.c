@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:37:58 by maperrea          #+#    #+#             */
-/*   Updated: 2021/10/02 17:28:32 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/10/02 17:31:15 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ void	add_input(t_env *env, char **input)
 		while (input[i][j])
 			if (!ft_isdigit(input[i][j++]))
 				error();
+		if (j - (input[i][0] == '-') > 10 || ft_atoi(input[i]) > INT_MAX
+				|| ft_atoi(input[i]) < INT_MIN)
+			error();
 		env->a = stack_add_back(env->a, stack_new(ft_atoi(input[i])));
 		env->size++;
 		i++;
