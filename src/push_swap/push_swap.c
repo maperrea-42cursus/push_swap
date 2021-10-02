@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 15:34:00 by maperrea          #+#    #+#             */
-/*   Updated: 2021/10/01 15:42:16 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/10/02 16:54:27 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,26 @@ static const t_hash	g_perm_4_b[24] =
 				  &rb_print, &rb_print, &sb_print}}
 };
 
+int	get_next(t_env *env, int current[2])
+{
+	if (env->b && env->b->chunk == current[1]
+		&& current[1] != current[0])
+		rr_print(env);
+	else
+		ra_print(env);
+	return (1);
+}
+
+int	push_number(t_env *env, int current[2])
+{
+	pb_print(env);
+	if (env->b->chunk == current[1] && current[1] != current[0]
+		&& (!env->a || env->a->chunk == current[0]
+			|| env->a->chunk == current[1]))
+		rb_print(env);
+	return (1);
+}
+
 void	sort_into_chunks(t_env *env)
 {
 	int		current[2];
@@ -117,23 +137,9 @@ void	sort_into_chunks(t_env *env)
 	while (env->a)
 	{
 		if (env->a->chunk != current[0] && env->a->chunk != current[1])
-		{
-			count++;
-			if (env->b && env->b->chunk == current[1]
-				&& current[1] != current[0])
-				rr_print(env);
-			else
-				ra_print(env);
-		}
+			count += get_next(env, current);
 		if (env->a->chunk == current[0] || env->a->chunk == current[1])
-		{
-			count++;
-			pb_print(env);
-			if (env->b->chunk == current[1] && current[1] != current[0]
-				&& (!env->a || env->a->chunk == current[0]
-					|| env->a->chunk == current[1]))
-				rb_print(env);
-		}
+			count += push_number(env, current);
 		if (count == size)
 		{
 			count = 0;
@@ -189,17 +195,14 @@ int	num_operation_to_set(t_env *env, int index, int *same_direction)
 	pos_dist = get_pos_distance(env->a, env->size_a, index);
 	*same_direction = 1;
 	if ((dist >= 0 && pos_dist >= 0) || (dist <= 0 && pos_dist <= 0))
-	{
 		if (ft_abs(dist) > ft_abs(pos_dist))
 			return (dist);
-		else
-			return (pos_dist);
-	}
+	else
+		return (pos_dist);
 	else
 	{
 		if (ft_abs(dist) + ft_abs(pos_dist) < env->size_b - ft_abs(dist)
-			&& ft_abs(dist) + ft_abs(pos_dist)
-			< env->size_a - ft_abs(pos_dist))
+			&& ft_abs(dist) + ft_abs(pos_dist) < env->size_a - ft_abs(pos_dist))
 		{
 			*same_direction = 0;
 			return (ft_abs(dist) + ft_abs(pos_dist));
@@ -208,7 +211,7 @@ int	num_operation_to_set(t_env *env, int index, int *same_direction)
 			return ((env->size_b - ft_abs(dist)) * (1 - (2 * (dist > 0))));
 		else
 			return ((env->size_a - ft_abs(pos_dist))
-					* (1 - (2 * (pos_dist > 0))));
+				* (1 - (2 * (pos_dist > 0))));
 	}
 }
 
@@ -258,19 +261,6 @@ void	set_number(t_env *env, int index, int rotations, int same_direction)
 	pa_print(env);
 }
 
-void	sort_chunks_1(t_env *env)
-{
-	int		current;
-
-	current = env->size - 1;
-	while (env->b)
-	{
-		apply_rotation_b(env, get_distance(env->b, env->size_b, current));
-		pa_print(env);
-		current--;
-	}
-}
-
 int	has_chunk(t_stack *stack, int chunk)
 {
 	while (stack)
@@ -282,57 +272,59 @@ int	has_chunk(t_stack *stack, int chunk)
 	return (0);
 }
 
-void	sort_chunks_2(t_env *env)
+int	get_fastest_index(t_env *env, int chunk,
+		int *fastest, int *fastest_direction)
+{
+	int		dist;
+	int		fastest_index;
+	int		direction;
+	t_stack	*stack;
+
+	stack = env->b;
+	while (stack->chunk != chunk)
+		stack = stack->next;
+	*fastest = num_operation_to_set(env, stack->index, fastest_direction);
+	fastest_index = stack->index;
+	stack = stack->next;
+	while (stack)
+	{
+		dist = num_operation_to_set(env, stack->index, &direction);
+		if (stack->chunk == chunk && ft_abs(dist) < ft_abs(*fastest))
+		{
+			*fastest = dist;
+			fastest_index = stack->index;
+			*fastest_direction = direction;
+		}
+		stack = stack->next;
+	}
+	return (fastest_index);
+}
+
+void	sort_chunks(t_env *env)
 {
 	int		chunk;
-	int		dist;
+	int		rotations;
+	int		index;
 	int		direction;
-	int		fastest;
-	int		fastest_index;
-	int		fastest_direction;
-	t_stack	*tmp;
 
 	chunk = env->chunks - 1;
 	while (env->b)
 	{
 		while (has_chunk(env->b, chunk))
 		{
-			tmp = env->b;
-			while (tmp->chunk != chunk)
-				tmp = tmp->next;
-			fastest = num_operation_to_set(env, tmp->index, &fastest_direction);
-			fastest_index = tmp->index;
-			tmp = tmp->next;
-			while (tmp)
-			{
-				dist = num_operation_to_set(env, tmp->index, &direction);
-				if (tmp->chunk == chunk && ft_abs(dist) < ft_abs(fastest))
-				{
-					fastest = dist;
-					fastest_index = tmp->index;
-					fastest_direction = direction;
-				}
-				tmp = tmp->next;
-			}
-			set_number(env, fastest_index, fastest, fastest_direction);
+			index = get_fastest_index(env, chunk, &rotations, &direction);
+			set_number(env, index, rotations, direction);
 		}
 		chunk--;
 	}
 	apply_rotation_a(env, get_distance(env->a, env->size_a, 0));
 }
 
-void	sort_hardcode(t_env *env, const t_hash *perm, int stack_nb, int offset)
+int	get_hash(t_stack *stack, int offset)
 {
-	int		hash;
-	int		i;
-	int		j;
 	int		factor;
-	t_stack	*stack;
+	int		hash;
 
-	if (stack_nb == 1)
-		stack = env->a;
-	else
-		stack = env->b;
 	factor = 10000;
 	hash = 0;
 	while (stack)
@@ -342,15 +334,25 @@ void	sort_hardcode(t_env *env, const t_hash *perm, int stack_nb, int offset)
 		stack = stack->next;
 	}
 	hash = hash / factor;
+	return (hash);
+}
+
+void	sort_hardcode(t_env *env, const t_hash *perm, int stack_nb, int offset)
+{
+	int		hash;
+	int		i;
+	int		j;
+
+	if (stack_nb == 1)
+		hash = get_hash(env->a, offset);
+	else
+		hash = get_hash(env->b, offset);
 	i = 0;
 	while (perm[i].pattern != hash)
 		i++;
-	j = 0;
-	while (j < perm[i].count)
-	{
+	j = -1;
+	while (++j < perm[i].count)
 		(*(perm[i].action[j]))(env);
-		j++;
-	}
 }
 
 const t_hash	*get_perm(int stack, int size)
