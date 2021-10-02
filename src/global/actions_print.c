@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:36:13 by maperrea          #+#    #+#             */
-/*   Updated: 2021/10/01 15:09:25 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/10/02 17:09:15 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,83 +74,5 @@ t_env	*pb_print(t_env *env)
 	env->size_b++;
 	env->size_a--;
 	write(1, "pb\n", 3);
-	return (env);
-}
-
-//put first of a at the end
-t_env	*ra_print(t_env *env)
-{
-	t_stack	*tmp;
-
-	tmp = env->a;
-	if (!env->a)
-		return (env);
-	stack_previous(env->a, NULL)->next = env->a;
-	env->a = env->a->next;
-	tmp->next = NULL;
-	write(1, "ra\n", 3);
-	return (env);
-}
-
-//put first of b at the end
-t_env	*rb_print(t_env *env)
-{
-	t_stack	*tmp;
-
-	if (!env->b)
-		return (env);
-	tmp = env->b;
-	stack_previous(env->b, NULL)->next = env->b;
-	env->b = env->b->next;
-	tmp->next = NULL;
-	write(1, "rb\n", 3);
-	return (env);
-}
-
-//ra and rb
-t_env	*rr_print(t_env *env)
-{
-	ra(env);
-	rb(env);
-	write(1, "rr\n", 3);
-	return (env);
-}
-
-//put last of a at the beginning
-t_env	*rra_print(t_env *env)
-{
-	t_stack	*tmp;
-
-	if (!env->a)
-		return (env);
-	tmp = stack_previous(env->a, NULL);
-	stack_previous(env->a, tmp)->next = NULL;
-	tmp->next = env->a;
-	env->a = tmp;
-	write(1, "rra\n", 4);
-	return (env);
-}
-
-//put last of b at the beginning
-t_env	*rrb_print(t_env *env)
-{
-	t_stack	*tmp;
-
-	if (!env->b)
-		return (env);
-	tmp = stack_previous(env->b, NULL);
-	stack_previous(env->b, tmp)->next = NULL;
-	tmp->next = env->b;
-	env->b = tmp;
-	write(1, "rrb\n", 4);
-	return (env);
-}
-
-//rra and rrb
-t_env	*rrr_print(t_env *env)
-{
-	rra(env);
-	rrb(env);
-	write(1, "rrr\n", 4);
 	return (env);
 }

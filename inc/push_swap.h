@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 20:04:09 by maperrea          #+#    #+#             */
-/*   Updated: 2021/09/30 17:09:17 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/10/02 17:06:22 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,20 @@ typedef struct s_hash
 	t_action		*action[6];
 }				t_hash;
 
-t_stack					*bubble_sort(t_env *env);
+int						get_distance(t_stack *stack, int size, int index);
+int						get_pos_distance(t_stack *stack, int size, int index);
+int						num_operation_to_set(t_env *env, int index,
+							int *same_direction);
+void					apply_rotation_b(t_env *env, int amount);
+void					apply_rotation_a(t_env *env, int amount);
+
 void					set_index(t_env *env);
-t_stack					*longest_sorted_list(t_stack *stack);
 void					set_chunks(t_env *env);
+
+void					single_chunk(t_env *env);
+
+void					sort_into_chunks(t_env *env);
+
+void					sort_chunks(t_env *env);
 
 #endif
