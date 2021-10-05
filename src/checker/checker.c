@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 19:53:32 by maperrea          #+#    #+#             */
-/*   Updated: 2021/10/01 14:56:07 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/10/05 17:44:56 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	main(int argc, char **argv)
 	t_env	*env;
 	char	**actions_str;
 
+	if (argc == 1)
+		return (0);
 	env = parse_env(argc, argv);
 	check_dupes(env);
 	actions_str = read_input();

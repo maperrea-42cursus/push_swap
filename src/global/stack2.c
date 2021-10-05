@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 17:10:00 by maperrea          #+#    #+#             */
-/*   Updated: 2021/10/02 17:10:24 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/10/05 20:20:42 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,11 @@ void	del_stack(t_stack *stack)
 		del_elem(stack);
 		stack = next;
 	}
+}
+
+void	del_env(t_env *env)
+{
+	del_stack(env->a);
+	del_stack(env->b);
+	free(env);
 }

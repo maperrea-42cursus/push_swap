@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 14:32:18 by maperrea          #+#    #+#             */
-/*   Updated: 2021/10/02 17:31:46 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/10/05 20:21:49 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ t_stack				*stack_copy(t_stack *stack);
 t_stack				*stack_copy_one(t_stack *elem);
 void				del_elem(t_stack *elem);
 void				del_stack(t_stack *stack);
+void				del_env(t_env *env);
 
 t_env				*sa(t_env *env);
 t_env				*sb(t_env *env);

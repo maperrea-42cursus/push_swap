@@ -6,7 +6,7 @@
 /*   By: maperrea <maperrea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 15:34:00 by maperrea          #+#    #+#             */
-/*   Updated: 2021/10/02 17:02:11 by maperrea         ###   ########.fr       */
+/*   Updated: 2021/10/05 20:22:05 by maperrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,6 @@ int	main(int argc, char **argv)
 		sort_into_chunks(env);
 		sort_chunks(env);
 	}
+	free_list();
+	del_env(env);
 }
