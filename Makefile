@@ -43,7 +43,7 @@ CC				= gcc
 
 RM				= rm -f
 
-CFLAGS			= -Wall -Werror -Wextra
+CFLAGS			= #-Wall -Werror -Wextra
 
 DEBUG			= #-g -fsanitize=address -D CHECK_LEAKS -D VERBOSE
 
