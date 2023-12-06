@@ -14,19 +14,19 @@
 
 static const t_hash	g_perm_1[1] = {{0, 0, {NULL}}};
 
-const static t_hash	g_perm_2_a[2] =
+static const t_hash	g_perm_2_a[2] =
 {
 	{1, 0, {NULL}},
 	{10, 1, {&sa_print}}
 };
 
-const static t_hash	g_perm_2_b[2] =
+static const t_hash	g_perm_2_b[2] =
 {
 	{10, 0, {NULL}},
 	{1, 1, {&sb_print}}
 };
 
-const static t_hash	g_perm_3_a[6] =
+static const t_hash	g_perm_3_a[6] =
 {
 	{12, 0, {NULL}},
 	{102, 1, {&sa_print}},
@@ -36,7 +36,7 @@ const static t_hash	g_perm_3_a[6] =
 	{210, 2, {&sa_print, &rra_print}}
 };
 
-const static t_hash	g_perm_3_b[6] =
+static const t_hash	g_perm_3_b[6] =
 {
 	{210, 0, {NULL}},
 	{120, 1, {&sb_print}},
