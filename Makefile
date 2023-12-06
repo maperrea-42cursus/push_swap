@@ -45,7 +45,7 @@ RM				= rm -f
 
 CFLAGS			= -Wall -Werror -Wextra
 
-DEBUG			= -g -fsanitize=address -D CHECK_LEAKS -D VERBOSE
+DEBUG			= #-g -fsanitize=address -D CHECK_LEAKS -D VERBOSE
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 				$(CC) $(DEBUG) -O3 $(CFLAGS) -I$(INCDIR) -c $^ -o $@

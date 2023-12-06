@@ -45,10 +45,8 @@ t_action	*get_action(char *str)
 void	check_dupes(t_env *env)
 {
 	t_stack	*stack;
-	int		end;
 
 	stack = env->a;
-	end = 0;
 	while (stack)
 	{
 		if (stack_find(env->a, stack->key) != stack)
