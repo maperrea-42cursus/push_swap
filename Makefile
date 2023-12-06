@@ -61,13 +61,13 @@ $(LIBFTDIR)/$(LIBFT):
 
 push_swap:		$(OBJDIR) $(LIBFTDIR)/$(LIBFT) $(GLOBALOBJS) $(PUSHSWAPOBJS)
 				$(CC) $(DEBUG) -O3 $(CFLAGS) -I$(INCDIR)\
-					$(LIBFTDIR)/$(LIBFT) $(GLOBALOBJS)\
-					$(PUSHSWAPOBJS) -o push_swap
+					$(GLOBALOBJS)\
+					$(PUSHSWAPOBJS) -Llibft -lft -o push_swap
 
 checker:		$(OBJDIR) $(LIBFTDIR)/$(LIBFT) $(GLOBALOBJS) $(CHECKEROBJS)
 				$(CC) $(DEBUG) -O3 $(CFLAGS) -I$(INCDIR)\
 					$(LIBFTDIR)/$(LIBFT) $(GLOBALOBJS)\
-					$(CHECKEROBJS) -o checker
+					$(CHECKEROBJS) -Llibft -lft -o checker
 
 bonus:			all
 
