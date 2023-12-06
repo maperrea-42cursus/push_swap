@@ -12,7 +12,7 @@
 
 #include "global.h"
 
-const static t_dict	g_action_dict[11] =
+static const t_dict	g_action_dict[11] =
 {
 	{"sa", &sa},
 	{"sb", &sb},
