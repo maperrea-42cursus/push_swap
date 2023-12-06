@@ -18,7 +18,7 @@ t_env	*sa_print(t_env *env)
 	if (!env->a)
 		return (env);
 	env->a = stack_insert(env->a->next, env->a);
-	write(1, "sa\n", 3);
+	(void)write(1, "sa\n", 3);
 	return (env);
 }
 
@@ -28,7 +28,7 @@ t_env	*sb_print(t_env *env)
 	if (!env->b)
 		return (env);
 	env->b = stack_insert(env->b->next, env->b);
-	write(1, "sb\n", 3);
+	(void)write(1, "sb\n", 3);
 	return (env);
 }
 
@@ -37,7 +37,7 @@ t_env	*ss_print(t_env *env)
 {
 	sa(env);
 	sb(env);
-	write(1, "ss\n", 3);
+	(void)write(1, "ss\n", 3);
 	return (env);
 }
 
@@ -55,7 +55,7 @@ t_env	*pa_print(t_env *env)
 	env->b = tmp;
 	env->size_a++;
 	env->size_b--;
-	write(1, "pa\n", 3);
+	(void)write(1, "pa\n", 3);
 	return (env);
 }
 
@@ -73,6 +73,6 @@ t_env	*pb_print(t_env *env)
 	env->a = tmp;
 	env->size_b++;
 	env->size_a--;
-	write(1, "pb\n", 3);
+	(void)write(1, "pb\n", 3);
 	return (env);
 }

@@ -23,7 +23,7 @@ t_env	*rra_print(t_env *env)
 	stack_previous(env->a, tmp)->next = NULL;
 	tmp->next = env->a;
 	env->a = tmp;
-	write(1, "rra\n", 4);
+	(void)write(1, "rra\n", 4);
 	return (env);
 }
 
@@ -38,7 +38,7 @@ t_env	*rrb_print(t_env *env)
 	stack_previous(env->b, tmp)->next = NULL;
 	tmp->next = env->b;
 	env->b = tmp;
-	write(1, "rrb\n", 4);
+	(void)write(1, "rrb\n", 4);
 	return (env);
 }
 
@@ -47,6 +47,6 @@ t_env	*rrr_print(t_env *env)
 {
 	rra(env);
 	rrb(env);
-	write(1, "rrr\n", 4);
+	(void)write(1, "rrr\n", 4);
 	return (env);
 }
